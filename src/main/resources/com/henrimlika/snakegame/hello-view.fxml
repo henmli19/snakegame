@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.henrimlika.snakegame.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.layout.AnchorPane?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane fx:id="anchorPane"
+            onKeyPressed="#moveSquareKeyPressed"
+            prefHeight="600.0" prefWidth="600.0"
+            style="-fx-background-image: url('/grass.jpg');
+       -fx-background-size: cover;"
+            xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.henrimlika.snakegame.HelloController">
+    <Button fx:id="startButton" layoutX="32.0" layoutY="34.0"
+            onKeyPressed="#moveSquareKeyPressed"
+            onMouseClicked="#start" text="Begin"/>
+</AnchorPane>
+
