@@ -40,8 +40,8 @@ public class Food {
     }
 
     public void getRandomSpotForFood() {
-        int positionX = random.nextInt(12);  // Grid position X (12 grid cells)
-        int positionY = random.nextInt(12);  // Grid position Y (12 grid cells)
+        int positionX = random.nextInt(12);   // Grid position X (12 grid cells)
+        int positionY = random.nextInt(12);   // Grid position Y (12 grid cells)
 
         // Update the position of the ImageView
         imageView.setX(positionX * size);
