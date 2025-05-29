@@ -31,6 +31,8 @@ public class HelloController implements Initializable {
     private final List<Position> positions = new ArrayList<>();
     private final ArrayList<ImageView> snakeBody = new ArrayList<>();
     private int gameTicks;
+    private ScoreCounter scoreCounter;
+
 
     @FXML
     private AnchorPane anchorPane;
@@ -48,6 +50,9 @@ public class HelloController implements Initializable {
         for (ImageView part : snakeBody) {
             anchorPane.getChildren().remove(part);
         }
+
+        scoreCounter = new ScoreCounter(anchorPane);
+        scoreCounter.resetScore();
 
         gameTicks = 0;
         positions.clear();
@@ -76,6 +81,7 @@ public class HelloController implements Initializable {
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
     }
 
     @Override
@@ -164,8 +170,4 @@ public class HelloController implements Initializable {
         }
         return false;
     }
-
-
-
-
 }
