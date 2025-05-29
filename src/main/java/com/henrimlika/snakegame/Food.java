@@ -15,19 +15,16 @@ public class Food {
         this.size = (int) size;
         position = new Position(xPos, yPos);
 
-        // Load the apple image from the specified path
         Image image = new Image("/apple.png");
 
-        // Create an ImageView and set its size
+
         imageView = new ImageView(image);
         imageView.setFitWidth(size);
         imageView.setFitHeight(size);
 
-        // Set the initial position of the food
         imageView.setX(position.getXPos());
         imageView.setY(position.getYPos());
 
-        // Add the image to the pane
         pane.getChildren().add(imageView);
     }
 
@@ -40,14 +37,14 @@ public class Food {
     }
 
     public void getRandomSpotForFood() {
-        int positionX = random.nextInt(12);   // Grid position X (12 grid cells)
-        int positionY = random.nextInt(12);   // Grid position Y (12 grid cells)
+        int positionX = random.nextInt(12);
+        int positionY = random.nextInt(12);
 
-        // Update the position of the ImageView
+
         imageView.setX(positionX * size);
         imageView.setY(positionY * size);
 
-        // Update the position object as well
+
         position.setXPos(positionX * size);
         position.setYPos(positionY * size);
 
