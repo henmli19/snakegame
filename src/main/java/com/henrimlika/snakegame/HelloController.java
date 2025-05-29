@@ -27,6 +27,7 @@ public class HelloController implements Initializable {
     double xPos;
     double yPos;
 
+    Food food;
     private Direction direction;
     private final List<Position> positions = new ArrayList<>();
     private final ArrayList<ImageView> snakeBody = new ArrayList<>();
@@ -93,11 +94,13 @@ public class HelloController implements Initializable {
                 moveSnakeTail(snakeBody.get(i), i);
             }
             canChangeDirection = true;
+            eatFood();
             gameTicks++;
             if (checkIfGameIsOver(snakeHead)) {
                 timeline.stop();
             }
         }));
+        food = new Food(-50, -50, anchorPane, snakeSize);
     }
 
     @FXML
@@ -155,6 +158,34 @@ public class HelloController implements Initializable {
             System.out.println("Game_over");
             return true;
         } else return snakeHitItSelf();
+    }
+
+    private void eatFood(){
+        if (xPos + snakeHead.getX() == food.getPosition().getXPos() && yPos + snakeHead.getY() == food.getPosition().getYPos()){
+            System.out.println("Eat food");
+            foodCantSpawnInsideSnake();
+            addSnakeTail();
+        }
+    }
+
+    private void foodCantSpawnInsideSnake(){
+        food.moveFood();
+        while (isFoodInsideSnake()){
+            food.moveFood();
+        }
+    }
+
+    private boolean isFoodInsideSnake(){
+        int size = positions.size();
+        if (size > 2) {
+            for(int i = size - snakeBody.size(); i < size; i++){
+                if (food.getPosition().getXPos() == positions.get(i).getXPos() && food.getPosition().getYPos() == positions.get(i).getYPos()){
+                    System.out.println("Inside");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public boolean snakeHitItSelf() {
