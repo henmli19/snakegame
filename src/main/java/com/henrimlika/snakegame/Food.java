@@ -3,25 +3,25 @@ package com.henrimlika.snakegame;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+
 import java.util.Random;
 
 public class Food {
+    private static final String FOOD_IMAGE_PATH = "/apple.png";
+
     private final Position position;
     private final ImageView imageView;
     private final Random random = new Random();
-    private final int size;
+    private final int gridSize;
 
-    public Food(double xPos, double yPos, AnchorPane pane, double size) {
-        this.size = (int) size;
-        position = new Position(xPos, yPos);
+    public Food(double x, double y, AnchorPane pane, double size) {
+        this.gridSize = (int) size;
+        this.position = new Position(x, y);
 
-        Image image = new Image("/apple.png");
-
-
-        imageView = new ImageView(image);
+        Image foodImage = new Image(FOOD_IMAGE_PATH);
+        this.imageView = new ImageView(foodImage);
         imageView.setFitWidth(size);
         imageView.setFitHeight(size);
-
         imageView.setX(position.getXPos());
         imageView.setY(position.getYPos());
 
@@ -33,21 +33,22 @@ public class Food {
     }
 
     public void moveFood() {
-        getRandomSpotForFood();
+        updatePositionRandomly();
     }
 
-    public void getRandomSpotForFood() {
-        int positionX = random.nextInt(12);
-        int positionY = random.nextInt(12);
+    private void updatePositionRandomly() {
+        int randomX = random.nextInt(12);
+        int randomY = random.nextInt(12);
 
+        double newX = randomX * gridSize;
+        double newY = randomY * gridSize;
 
-        imageView.setX(positionX * size);
-        imageView.setY(positionY * size);
+        imageView.setX(newX);
+        imageView.setY(newY);
 
+        position.setXPos(newX);
+        position.setYPos(newY);
 
-        position.setXPos(positionX * size);
-        position.setYPos(positionY * size);
-
-        System.out.println((positionX * size) + "---FOOD---" + (positionY * size));
+        System.out.println(newX + " ---FOOD--- " + newY);
     }
 }
