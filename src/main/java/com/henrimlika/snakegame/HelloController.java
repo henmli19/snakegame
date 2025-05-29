@@ -24,11 +24,9 @@ public class HelloController implements Initializable {
 
     private final Double snakeSize = 50.;
     private ImageView snakeHead;
-    private ImageView snakeTail_1;
     double xPos;
     double yPos;
 
-    Food food;
     private Direction direction;
     private final List<Position> positions = new ArrayList<>();
     private final ArrayList<ImageView> snakeBody = new ArrayList<>();
@@ -61,7 +59,7 @@ public class HelloController implements Initializable {
         snakeHead.setX(250);
         snakeHead.setY(250);
 
-        snakeTail_1 = new ImageView(bodyImage);
+        ImageView snakeTail_1 = new ImageView(bodyImage);
         snakeTail_1.setFitWidth(snakeSize);
         snakeTail_1.setFitHeight(snakeSize);
         snakeTail_1.setX(250 - snakeSize);
@@ -71,7 +69,6 @@ public class HelloController implements Initializable {
         yPos = snakeHead.getLayoutY();
         direction = Direction.RIGHT;
         canChangeDirection = true;
-        food.moveFood();
 
         snakeBody.add(snakeHead);
         snakeBody.add(snakeTail_1);
@@ -90,13 +87,11 @@ public class HelloController implements Initializable {
                 moveSnakeTail(snakeBody.get(i), i);
             }
             canChangeDirection = true;
-            eatFood();
             gameTicks++;
             if (checkIfGameIsOver(snakeHead)) {
                 timeline.stop();
             }
         }));
-        food = new Food(-50, -50, anchorPane, snakeSize);
     }
 
     @FXML
@@ -170,33 +165,7 @@ public class HelloController implements Initializable {
         return false;
     }
 
-    private void eatFood() {
-        if (xPos + snakeHead.getX() == food.getPosition().getXPos()
-                && yPos + snakeHead.getY() == food.getPosition().getYPos()) {
-            System.out.println("Eat food");
-            foodCantSpawnInsideSnake();
-            addSnakeTail();
-        }
-    }
 
-    private void foodCantSpawnInsideSnake() {
-        food.moveFood();
-        while (isFoodInsideSnake()) {
-            food.moveFood();
-        }
-    }
 
-    private boolean isFoodInsideSnake() {
-        int size = positions.size();
-        if (size > 2) {
-            for (int i = size - snakeBody.size(); i < size; i++) {
-                if (food.getPosition().getXPos() == positions.get(i).getXPos()
-                        && food.getPosition().getYPos() == positions.get(i).getYPos()) {
-                    System.out.println("Inside");
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 }
